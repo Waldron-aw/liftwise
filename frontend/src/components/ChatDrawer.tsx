@@ -22,7 +22,15 @@ interface ProgramProposal {
 const INITIAL_MESSAGES: Message[] = [
   {
     role: 'ai',
-    text: "Hey! I know your program and your recent sessions. Tell me what you want to change, how you're feeling, or ask me anything about your training.",
+    text: "Good morning Alex! Today is Sunday 17 May — Push A, your 4th session this week. You're on a 9-day streak and this is Week 8 of PPL Strength. Strong momentum.",
+  },
+  {
+    role: 'ai',
+    text: "Here's what I'm targeting for today:\n\n• **Bench Press** — 82.5kg × 5 (up from 80kg). You've hit 5×5 at 80 two sessions running, you're ready for the jump.\n• **OHP** — Hold at 52.5kg × 8. Form was shaky last week, one more session before we move up.\n• **Everything else** — same as last session, no changes.",
+  },
+  {
+    role: 'ai',
+    text: "Your weight has been steady at 78.4kg this week which is good — you're maintaining well. Sleep data looks decent too.\n\nAnything feel off this morning, or are we good to go?",
   },
 ]
 
@@ -242,8 +250,12 @@ export default function ChatDrawer({ onClose }: { onClose: () => void }) {
 
           return (
             <div key={i} className="flex justify-start">
-              <div className="bg-zinc-900 text-zinc-200 text-sm px-4 py-2.5 rounded-2xl rounded-tl-sm max-w-[85%] leading-relaxed">
-                {msg.text}
+              <div className="bg-zinc-900 text-zinc-200 text-sm px-4 py-3 rounded-2xl rounded-tl-sm max-w-[85%] leading-relaxed whitespace-pre-line">
+                {msg.text.split(/(\*\*[^*]+\*\*)/).map((part, j) =>
+                  part.startsWith('**') && part.endsWith('**')
+                    ? <span key={j} className="text-indigo-300 font-semibold">{part.slice(2, -2)}</span>
+                    : part
+                )}
               </div>
             </div>
           )
