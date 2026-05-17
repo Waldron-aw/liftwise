@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+.env
+
+# Node
+node_modules/
+dist/
+.env.local
+
+# GCP
+*.json
+!programs/*.json
+
+# OS
+.DS_Store
