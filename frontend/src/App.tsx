@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import Today from './pages/Today'
@@ -7,12 +8,16 @@ import Progress from './pages/Progress'
 import Exercises from './pages/Exercises'
 import BodyStats from './pages/BodyStats'
 import Profile from './pages/Profile'
-import Login from './pages/Login'
+import AuthFlow from './pages/auth/AuthFlow'
+
+type AppState = 'auth' | 'app'
 
 export default function App() {
-  const isLoggedIn = true // TODO: real auth
+  const [appState, setAppState] = useState<AppState>('auth')
 
-  if (!isLoggedIn) return <Login />
+  if (appState === 'auth') {
+    return <AuthFlow onComplete={() => setAppState('app')} />
+  }
 
   return (
     <BrowserRouter>
